@@ -1,20 +1,25 @@
 #!/usr/bin/env bash
 # Displays listening ports and associated programs
 
-# Get active TCP connections
-tcp_connections=$(sudo netstat -lntp 2>/dev/null)
+# Print header for TCP connections
+echo "Active Internet connections (only servers)"
 
-# Get active UDP connections
-udp_connections=$(sudo netstat -lunp 2>/dev/null)
+# Get active TCP connections and print formatted output
+tcp_conns=$(sudo netstat -lntp 2>/dev/null | awk 'NR>2 {printf "%s %-5s %-5s %-16s %-16s %-11s %-18s\n", $1, $2, $3, $4, $5, $6, $7}' ORS='')
+echo "$tcp_conns"
+echo ""
 
-# Get active UNIX sockets
-unix_sockets=$(sudo netstat -lxunp 2>/dev/null)
+# Print header for UDP connections 
+echo "Active UNIX domain sockets (only servers)"
 
-printf "Active Internet connections (only servers)\n"
-printf "$tcp_connections\n"
+# Get active UDP connections and print formatted output
+unix_conns=$(sudo netstat -lxunp 2>/dev/null | awk 'NR<3 {next} {printf "%s %-6s %-5s %-15s %-6s %-6s %-20s %-19s\n", $1, $2, $3, $4, $5, $6, $7, $8}' ORS='')
+echo "$unix_conns"
+echo ""
 
-printf "\nActive UNIX domain sockets (only servers)\n"
-printf "$unix_sockets\n"
+# Print header for UDP connections
+echo "UDP ports"
 
-printf "\nUDP ports\n"
-printf "$udp_connections\n"
+# Get active UDP connections and print formatted output
+udp_conns=$(sudo netstat -lunp 2>/dev/null | awk 'NR>2 {printf "%s %-5s %-5s %-16s %-16s %-11s %-18s\n", $1, $2, $3, $4, $5, $6, $7}' ORS='')
+echo "$udp_conns"
