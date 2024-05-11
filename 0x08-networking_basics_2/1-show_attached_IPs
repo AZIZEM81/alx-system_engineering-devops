@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Display all active IPv4 IPs
+
+# Get IPv4 addresses from ifconfig output
+ip_addresses=$(ifconfig | grep -oP 'inet \K\d+(\.\d+){3}')
+
+# Print each IP address on a new line
+echo "$ip_addresses" | while read line; do
+    echo "$line"
+done
