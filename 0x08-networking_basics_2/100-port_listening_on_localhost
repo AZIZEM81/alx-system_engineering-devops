@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Listen on port 98 on localhost
+
+# Start netcat in listen mode on port 98
+nc -l 98 > output.txt &
+
+# Wait for incoming connections and print received data
+while true; do
+    if [ -s output.txt ]; then
+        cat output.txt
+        truncate -s 0 output.txt
+    fi
+done
