@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Displays listening ports and associated programs
+
+# Get active TCP connections
+tcp_connections=$(sudo netstat -lntp 2>/dev/null)
+
+# Get active UDP connections
+udp_connections=$(sudo netstat -lunp 2>/dev/null)
+
+# Get active UNIX sockets
+unix_sockets=$(sudo netstat -lxunp 2>/dev/null)
+
+printf "Active Internet connections (only servers)\n"
+printf "$tcp_connections\n"
+
+printf "\nActive UNIX domain sockets (only servers)\n"
+printf "$unix_sockets\n"
+
+printf "\nUDP ports\n"
+printf "$udp_connections\n"
