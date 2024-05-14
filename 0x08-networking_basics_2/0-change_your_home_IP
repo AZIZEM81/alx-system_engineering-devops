@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+
 # Configure localhost and facebook.com IP addresses
 
 # Replace localhost IP in /etc/hosts
 sudo sed -i 's/127.0.0.1 localhost/127.0.0.2 localhost/g' /etc/hosts
 
 # Add facebook.com IP to /etc/hosts
-echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts > /dev/null
+echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts >> /dev/null
