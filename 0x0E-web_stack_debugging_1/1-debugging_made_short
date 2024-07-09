@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Short fix for Nginx listening on port 80
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+service nginx stop
+pkill apache2
+service nginx start
