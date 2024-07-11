@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# This script displays information about subdomains
+
+# Function to get and display subdomain information
+get_subdomain_info() {
+    local domain="$1"
+    local subdomain="$2"
+    
+    # Use dig to get the DNS record, then awk to extract the information
+    local record=$(dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; print}')
+    
+    if [ -n "$record" ]; then
+        local record_type=$(echo "$record" | awk '{print $4}')
+        local destination=$(echo "$record" | awk '{print $5}')
+        echo "The subdomain $subdomain is a $record_type record and points to $destination"
+    fi
+}
+
+# Main script logic
+domain="$1"
+subdomain="$2"
+
+if [ -z "$subdomain" ]; then
+    # If no subdomain is provided, check for www, lb-01, web-01, and web-02
+    for sub in "www" "lb-01" "web-01" "web-02"; do
+        get_subdomain_info "$domain" "$sub"
+    done
+else
+    # If a subdomain is provided, only check that one
+    get_subdomain_info "$domain" "$subdomain"
+fi
