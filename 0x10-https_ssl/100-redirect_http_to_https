@@ -1,0 +1,15 @@
+frontend www-http
+    bind *:80
+    reqadd X-Forwarded-Proto:\ http
+    default_backend www-backend
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend www-https
+    bind *:443 ssl crt /etc/letsencrypt/live/www.emcoding.tech/fullchain.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend www-backend
+
+backend www-backend
+    balance roundrobin
+    server web-01 100.25.31.227:80 check
+    server web-02 100.24.237.118:80 check
