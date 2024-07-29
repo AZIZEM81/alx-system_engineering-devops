@@ -25,8 +25,9 @@ def export_all_to_json():
     for user in users_data:
         user_id = str(user['id'])
         username = user['username']
-        user_todos = [todo for todo in todos_data if todo['userId'] == user['id']]
-        
+        user_todos = [todo for todo in todos_data
+                      if todo['userId'] == user['id']]
+
         tasks = []
         for todo in user_todos:
             tasks.append({
@@ -34,7 +35,7 @@ def export_all_to_json():
                 "task": todo['title'],
                 "completed": todo['completed']
             })
-        
+
         all_employees[user_id] = tasks
 
     filename = "todo_all_employees.json"

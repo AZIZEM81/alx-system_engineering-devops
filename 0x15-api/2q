@@ -1,0 +1,6 @@
+
+nary_of_list_of_dictionaries.py:28:80: E501 line too long (82 > 79 characters)
+3-dictionary_of_list_of_dictionaries.py:29:1: W293 blank line contains whitespace
+3-dictionary_of_list_of_dictionaries.py:37:1: W293 blank line contains whitespace
+root@9ffad588b49c:/alx-system_engineering-devops/0x15-api# 
+
