@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Module for querying the Reddit API and returning the subscriber count.
-"""
+"""Module for querying the Reddit API and returning the subscriber count."""
 import requests
 
 
@@ -19,12 +17,7 @@ def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {"User-Agent": "linux:0.1 (by /u/elhassanelas)"}
 
-    try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        if response.status_code == 200:
-            data = response.json()
-            return data["data"]["subscribers"]
-        else:
-            return 0
-    except Exception:
-        return 0
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code == 200:
+        return response.json().get("data", {}).get("subscribers", 0)
+    return 0
